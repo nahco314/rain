@@ -7,6 +7,7 @@ from rain.py.aes.generator import AESGenerator
 from rain.py.embed.generator import EmbedGenerator
 from rain.py.simple_embed.generator import SimpleEmbedGenerator
 from rain.py.weak.generator import WeakGenerator
+from rain.cpp.token_noise.generator import TokenNoiseGenerator
 
 py_generator_name_map = {
     "aes": AESGenerator,
@@ -17,6 +18,7 @@ py_generator_name_map = {
 
 cpp_generator_name_map = {
     "tokens": TokensGenerator,
+    "tn": TokenNoiseGenerator,
 }
 
 

@@ -28,6 +28,10 @@ Generators for Python
 - se: Same as aes, but outputs shorter code.
 - weak: Embeds source code data as a utf-8 byte sequence into an illegal byte sequence. The code length will be shortened, but **the contents will be retrieved by  wget, etc**.
 
+Generators for C++
+- tokens: Separates and encrypts C++ code in token units.
+- tn: similar algorithm to tokens, but outputs shorter code with reduced cipher strength. (tokens outputs extremely long code)
+
 If you submit the output results by copy-pasting, the data cannot be transmitted, so please submit the data using [oj](https://github.com/online-judge-tools/oj) or other means.
 
 ## Example

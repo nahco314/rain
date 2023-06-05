@@ -1,10 +1,11 @@
 from pathlib import Path
 
-from rain.cpp.tokens.tokenize import Tokenizer
+from rain.cpp.tokenize import Tokenizer
 from rain.generator import Generator
+from rain.cpp.prepro_generator_base import PreProcessorGenerator
 
 
-class TokensGenerator(Generator):
+class TokensGenerator(PreProcessorGenerator):
     def generate(self, source: str, output_path: Path) -> None:
         tokens = Tokenizer().tokenize(source)
         set_token = {t for t in tokens if not t.startswith("#")}
@@ -26,15 +27,3 @@ class TokensGenerator(Generator):
 
         with open(output_path, "wb") as f:
             f.write(result)
-
-    @property
-    def if_true(self) -> bytes:
-        return b"#if '%s' == '%s'\n" % (self.null, self.null)
-
-    @property
-    def if_false(self) -> bytes:
-        return b"#if '%s' == '%s'\n" % (self.null, self.question)
-
-    @property
-    def end_if(self) -> bytes:
-        return b"#endif\n"
