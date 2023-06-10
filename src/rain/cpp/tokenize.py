@@ -161,3 +161,16 @@ class Tokenizer:
                 raise Exception(f"tokenize failed at {now}, {res}")
 
         return res
+
+    def tokenize_1k(self, source: str) -> list[str]:
+        res = self.tokenize(source)
+
+        while len(res) > 1000:
+            while True:
+                i = secrets.randbelow(len(res) - 1)
+                if not res[i + 1].startswith("#"):
+                    break
+
+            res[i] += "\n" + res.pop(i + 1)
+
+        return res

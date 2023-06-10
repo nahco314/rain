@@ -1,13 +1,13 @@
 import argparse
 from pathlib import Path
 
+from rain.cpp.token_noise.generator import TokenNoiseGenerator
 from rain.cpp.tokens.generator import TokensGenerator
 from rain.generator import Generator
 from rain.py.aes.generator import AESGenerator
 from rain.py.embed.generator import EmbedGenerator
 from rain.py.simple_embed.generator import SimpleEmbedGenerator
 from rain.py.weak.generator import WeakGenerator
-from rain.cpp.token_noise.generator import TokenNoiseGenerator
 
 py_generator_name_map = {
     "aes": AESGenerator,

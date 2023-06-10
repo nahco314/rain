@@ -1,8 +1,7 @@
 from pathlib import Path
 
-from rain.cpp.tokenize import Tokenizer
-from rain.generator import Generator
 from rain.cpp.prepro_generator_base import PreProcessorGenerator
+from rain.cpp.tokenize import Tokenizer
 
 
 class TokensGenerator(PreProcessorGenerator):
