@@ -6,6 +6,8 @@ class WeakGenerator(OneDataGenerator):
     base = b"""\
 # coding: raw_unicode_escape
 
+# %s
+
 crypto = "%s"
 bits = []
 for byte in crypto.encode()[1::2]:

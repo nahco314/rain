@@ -10,6 +10,7 @@ class TokensGenerator(PreProcessorGenerator):
         set_token = {t for t in tokens if not t.startswith("#")}
 
         result = bytearray()
+        result.extend(self.display)
 
         for token in tokens:
             if token.startswith("#"):

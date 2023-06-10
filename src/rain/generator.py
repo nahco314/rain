@@ -2,6 +2,8 @@ from abc import abstractmethod
 from pathlib import Path
 from typing import Generator
 
+from rain.common import e_display
+
 
 def iter_bits(bytes_: bytes) -> Generator[int, None, None]:
     for byte in bytes_:
@@ -39,7 +41,7 @@ class OneDataGenerator(Generator):
 
     def generate(self, source: str, output_path: Path) -> None:
         crypto = self.encrypt(source)
-        result = self.base % crypto
+        result = self.base % (e_display.encode(), crypto)
 
         with open(output_path, "wb") as f:
             f.write(result)

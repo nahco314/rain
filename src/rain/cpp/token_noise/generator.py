@@ -19,6 +19,7 @@ class TokenNoiseGenerator(PreProcessorGenerator):
             )
 
         result = bytearray()
+        result.extend(self.display)
 
         for token, is_true in all_tokens:
             if token.startswith("#"):

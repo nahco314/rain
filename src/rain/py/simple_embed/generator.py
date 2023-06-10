@@ -5,6 +5,9 @@ from rain.generator import iter_bits
 class SimpleEmbedGenerator(OneDataGenerator):
     base = base = b"""\
 # coding:raw_unicode_escape
+
+# %s
+
 exec(bytes.fromhex(hex(sum([2**i*(x>0)for i,x in enumerate("%s".encode()[::-6])]))[3:]).decode())\
 """
 

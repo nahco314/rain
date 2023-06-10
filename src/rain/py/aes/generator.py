@@ -8,11 +8,14 @@ from typing import Optional
 
 from rain.generator import Generator
 from rain.generator import iter_bits
+from rain.common import e_display
 
 
 class AESGenerator(Generator):
     base = b"""\
 # coding: raw_unicode_escape
+
+# %(display)s
 
 import subprocess
 import base64
@@ -77,7 +80,7 @@ exec(source)
         key = self._gen_key()
         crypto = base64.b64encode(self.encrypt_aes(key, source))
 
-        result = self.base % {b"key": key, b"crypto": crypto}
+        result = self.base % {b"key": key, b"crypto": crypto, b"display": e_display.encode()}
 
         with open(output_path, "wb") as f:
             f.write(result)

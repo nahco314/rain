@@ -6,6 +6,8 @@ class EmbedGenerator(OneDataGenerator):
     base = base = b"""\
 # coding: raw_unicode_escape
 
+# %s
+
 crypto = "%s"
 code = crypto.encode()
 bits = []
