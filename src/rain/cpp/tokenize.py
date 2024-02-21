@@ -35,7 +35,10 @@ class Tokenizer:
         raw_string,
     )
     user_literal = re.compile(
-        "(" + "|".join(rf"({l.pattern})" for l in _basic_litarals) + ")_" + name.pattern
+        "("
+        + "|".join(rf"({line.pattern})" for line in _basic_litarals)
+        + ")_"
+        + name.pattern
     )  # ?
 
     _operators = (
