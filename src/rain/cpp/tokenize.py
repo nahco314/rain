@@ -3,24 +3,24 @@ import secrets
 
 
 class Tokenizer:
-    preprocessor_directive = re.compile(r"^#.*$", re.MULTILINE)
-    comment = re.compile(r"(//[^\n]*?$)|(/\*.*?\*/)", re.DOTALL | re.MULTILINE)
+    preprocessor_directive = re.compile(rb"^#.*$", re.MULTILINE)
+    comment = re.compile(rb"(//[^\n]*?$)|(/\*.*?\*/)", re.DOTALL | re.MULTILINE)
 
-    name = re.compile(r"[a-zA-Z_][a-zA-Z0-9_]*")  # keyword, identifier
+    name = re.compile(rb"[a-zA-Z_][a-zA-Z0-9_]*")  # keyword, identifier
 
-    pointfloat = re.compile(r"\d('?\d)*\.(\d('?\d)*)?([eE]-?\d('?\d)*)?[fFlL]?")
-    intfloat = re.compile(r"\d('?\d)*[eE]-?\d('?\d)*[fFlL]?")
+    pointfloat = re.compile(rb"\d('?\d)*\.(\d('?\d)*)?([eE]-?\d('?\d)*)?[fFlL]?")
+    intfloat = re.compile(rb"\d('?\d)*[eE]-?\d('?\d)*[fFlL]?")
 
-    bin_int = re.compile(r"0[bB][01]('?[01])*[uU]?[lL]{0,2}")
-    hex_int = re.compile(r"0[xX][0-9a-fA-F]('?[0-9a-fA-F])*[uU]?[lL]{0,2}")
-    oct_int = re.compile(r"0('?[0-7])*[uU]?[lL]{0,2}")
-    int = re.compile(r"\d('?\d)*[uU]?[lL]{0,2}")
+    bin_int = re.compile(rb"0[bB][01]('?[01])*[uU]?[lL]{0,2}")
+    hex_int = re.compile(rb"0[xX][0-9a-fA-F]('?[0-9a-fA-F])*[uU]?[lL]{0,2}")
+    oct_int = re.compile(rb"0('?[0-7])*[uU]?[lL]{0,2}")
+    int = re.compile(rb"\d('?\d)*[uU]?[lL]{0,2}")
 
-    bool = re.compile(r"(true|false)")
+    bool = re.compile(rb"(true|false)")
 
-    char = re.compile(r"(u8|L|u|U)?'(.|\\.)'")
-    string = re.compile(r"(u8|L|u|U)?\".*?\"s?")
-    raw_string = re.compile(r"(u8|L|u|U)?\"\(.*?\)\"s?")
+    char = re.compile(rb"(u8|L|u|U)?'(.|\\.)'")
+    string = re.compile(rb"(u8|L|u|U)?\".*?\"s?")
+    raw_string = re.compile(rb"(u8|L|u|U)?\"\(.*?\)\"s?")
 
     _basic_litarals = (
         int,
@@ -35,66 +35,66 @@ class Tokenizer:
         raw_string,
     )
     user_literal = re.compile(
-        "("
-        + "|".join(rf"({line.pattern})" for line in _basic_litarals)
-        + ")_"
+        b"("
+        + b"|".join(rf"({line.pattern})".encode() for line in _basic_litarals)
+        + b")_"
         + name.pattern
     )  # ?
 
     _operators = (
-        "::",
-        ".*",
-        "->*",
-        "?",
-        ":",
-        "*=",
-        "/=",
-        "%=",
-        "+=",
-        "-=",
-        "<<=",
-        ">>=",
-        "&=",
-        "|=",
-        "^=",
-        ",",
-        "...",
-        ".",
-        "->",
-        "[",
-        "]",
-        "(",
-        ")",
-        "++",
-        "--",
-        "~",
-        "!=",
-        "!",
-        "-",
-        "+",
-        "*",
-        "/",
-        "%",
-        "<<",
-        ">>",
-        "<=",
-        ">=",
-        "<",
-        ">",
-        "==",
-        "&&",
-        "||",
-        "&",
-        "^",
-        "|",
-        "=",
+        b"::",
+        b".*",
+        b"->*",
+        b"?",
+        b":",
+        b"*=",
+        b"/=",
+        b"%=",
+        b"+=",
+        b"-=",
+        b"<<=",
+        b">>=",
+        b"&=",
+        b"|=",
+        b"^=",
+        b",",
+        b"...",
+        b".",
+        b"->",
+        b"[",
+        b"]",
+        b"(",
+        b")",
+        b"++",
+        b"--",
+        b"~",
+        b"!=",
+        b"!",
+        b"-",
+        b"+",
+        b"*",
+        b"/",
+        b"%",
+        b"<<",
+        b">>",
+        b"<=",
+        b">=",
+        b"<",
+        b">",
+        b"==",
+        b"&&",
+        b"||",
+        b"&",
+        b"^",
+        b"|",
+        b"=",
     )
-    _delimiters = ("{", "}", "\\", ":", ";", "'", '"')
+    _delimiters = (b"{", b"}", b"\\", b":", b";", b"'", b'"')
 
-    operator = re.compile("(" + "|".join(re.escape(op) for op in _operators) + ")")
-    delimiter = re.compile("(" + "|".join(re.escape(op) for op in _delimiters) + ")")
+    operator = re.compile(b"(" + b"|".join(re.escape(op) for op in _operators) + b")")
+    delimiter = re.compile(b"(" + b"|".join(re.escape(op) for op in _delimiters) + b")")
 
-    ignore = re.compile(r"\s+")
+    ignore = re.compile(rb"\s+")
 
     rules = (
         preprocessor_directive,
@@ -116,12 +116,12 @@ class Tokenizer:
         ignore,
     )
 
-    func_macro_def = re.compile(r"#define +([a-zA-Z_][a-zA-Z0-9_]*)\(.*\) +.*$")
+    func_macro_def = re.compile(rb"#define +([a-zA-Z_][a-zA-Z0-9_]*)\(.*\) +.*$")
 
-    def tokenize(self, source: str) -> list[str]:
+    def tokenize(self, source: bytes) -> list[bytes]:
         res = []
 
-        func_macros = ["assert"]
+        func_macros = [b"assert"]
 
         now = 0
         macro_par_level = -1
@@ -137,9 +137,9 @@ class Tokenizer:
                     res.append(m.group(0))
 
                 elif macro_par_level != -1:
-                    if m.group(0) == "(":
+                    if m.group(0) == b"(":
                         macro_par_level += 1
-                    elif m.group(0) == ")":
+                    elif m.group(0) == b")":
                         macro_par_level -= 1
 
                     res[-1] += m.group(0)
@@ -165,15 +165,15 @@ class Tokenizer:
 
         return res
 
-    def tokenize_1k(self, source: str) -> list[str]:
+    def tokenize_1k(self, source: bytes) -> list[bytes]:
         res = self.tokenize(source)
 
         while len(res) > 1000:
             while True:
                 i = secrets.randbelow(len(res) - 1)
-                if not res[i + 1].startswith("#"):
+                if not res[i + 1].startswith(b"#"):
                     break
 
-            res[i] += "\n" + res.pop(i + 1)
+            res[i] += b"\n" + res.pop(i + 1)
 
         return res

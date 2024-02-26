@@ -1,4 +1,4 @@
-from abc import abstractmethod
+from abc import abstractmethod, ABC
 from pathlib import Path
 from typing import Generator
 
@@ -11,11 +11,7 @@ def iter_bits(bytes_: bytes) -> Generator[int, None, None]:
             yield (byte >> i) & 1
 
 
-class Generator:
-    @abstractmethod
-    def generate(self, source: str, output_path: Path) -> None:
-        raise NotImplementedError
-
+class Encryptor(ABC):
     @property
     def null(self) -> bytes:
         return b"\x00"
@@ -30,18 +26,3 @@ class Generator:
             .replace(b"\xbf", b"\xc2\xbf")
             .replace(b"\xbd", b"\xc2\xbd")
         )
-
-
-class OneDataGenerator(Generator):
-    base: bytes
-
-    @abstractmethod
-    def encrypt(self, string: str) -> bytes:
-        pass
-
-    def generate(self, source: str, output_path: Path) -> None:
-        crypto = self.encrypt(source)
-        result = self.base % (e_display.encode(), crypto)
-
-        with open(output_path, "wb") as f:
-            f.write(result)

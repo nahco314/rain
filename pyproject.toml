@@ -1,6 +1,6 @@
 [project]
 name = "rain-code"
-version = "0.1.0"
+version = "0.2.0"
 description = "Encrypt the Python code you submit to AtCoder."
 authors = [
     { name = "nahco314", email = "nahco3_ta@yahoo.co.jp" }
@@ -20,7 +20,9 @@ build-backend = "hatchling.build"
 
 [tool.rye]
 managed = true
-dev-dependencies = []
+dev-dependencies = [
+    "pytest>=8.0.1",
+]
 [tool.hatch.metadata]
 allow-direct-references = true
 
